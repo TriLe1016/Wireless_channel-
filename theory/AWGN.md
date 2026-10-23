@@ -23,8 +23,10 @@ $$
 - Signal-to-Noise Ratio: $\text{SNR} = \frac{P_x}{P_n} = \frac{\text{công suất tín hiệu}}{\text{công suất nhiễu}}$
 - SNR theo dB: $\text{SNR}_{dB} = 10 \log_{10}\left(\frac{P_x}{P_n}\right)$
 
-$\Rightarrow$ công suất nhiễu: $P_n = \frac{P_n}{10^{\text{SNR}_{dB}/10}}$
-- độ lệch chuẩn của nhiễu: $\sigma = \sqrt{P_n}$
+$\Rightarrow$ công suất nhiễu: $P_n = \frac{P_x}{10^{\text{SNR}_{dB}/10}}$
+- độ lệch chuẩn của nhiễu thực: $\sigma = \sqrt{P_n}$; nhiễu phức: mỗi nhánh I, Q có $\sigma = \sqrt{P_n/2}$
+- Trong code, công suất symbol được chuẩn hóa $E_s = 1$ nên $P_n = N_0 = 10^{-\text{SNR}_{dB}/10}$
+- Đổi từ $E_b/N_0$: $\frac{E_s}{N_0}\Big|_{dB} = \frac{E_b}{N_0}\Big|_{dB} + 10\log_{10}k$, với $k = \log_2 M$ bit/symbol
 
 ## 4. Gaussian Noise
 - nhiễu sinh ra phải có công suất trung bình là $P_n = \lim_{T \to \infty} \frac{1}{T} \int_{-T/2}^{T/2} |n(t)|^2 \, dt$
@@ -32,9 +34,9 @@ $\Rightarrow$ công suất nhiễu: $P_n = \frac{P_n}{10^{\text{SNR}_{dB}/10}}$
 - gọi các nhiễu chuẩn hóa là $n_i\sim \mathcal{N}(0, 1)$ 
 - công suất trung bình mong muốn là $\sigma^2$
 - nhiễu thực:
-  - $n = \sqrt{P_n}n_I$, $n_I = \sigma n_I$ 
+  - $n = \sqrt{P_n}\,n_I = \sigma n_I$
 - nhiễu phức:
-  - $n = \sqrt{\frac{P_n}{2}}(n_I+jn_Q)$
+  - $n = \sqrt{\frac{P_n}{2}}(n_I+jn_Q)$, khi đó $E[|n|^2] = \frac{P_n}{2}(1+1) = P_n$
   
-$\Rightarrow$ là nhiễu chuẩn gaussian nên $\sigma^2$ = 1, $E[n_i^2] = 1$
+$\Rightarrow$ vì $n_I, n_Q$ là nhiễu Gaussian chuẩn nên $E[n_I^2] = E[n_Q^2] = 1$
 - hàm phân phối chuẩn Gaussian:`np.random.randn(N)`
